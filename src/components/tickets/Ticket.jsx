@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react"
 import { getAllEmployees } from "../../../services/employeeService"
 
@@ -14,7 +15,7 @@ export const Ticket = ({ ticket }) => {
         const foundEmployee = employees.find((employee) =>
             employee.id === ticket.employeeTickets[0]?.employeeId)
         setAssignedEmployee(foundEmployee)
-    }, [employees])
+    }, [employees, ticket.employeeTickets])
 
 
 
