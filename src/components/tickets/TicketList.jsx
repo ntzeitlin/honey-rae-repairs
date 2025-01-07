@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getAllTickets } from "../../../services/ticketService"
 import "./Tickets.css"
 import { Ticket } from "./Ticket"
-import { FilterBar } from "../FilterBar"
+import { FilterBar } from "./FilterBar"
 
 export const TicketList = () => {
     const [allTickets, setAllTickets] = useState([])
