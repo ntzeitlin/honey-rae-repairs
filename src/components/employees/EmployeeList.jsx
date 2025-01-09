@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllEmployees } from "../../../services/employeeService"
+import { getAllEmployees } from "../../services/employeeService"
 import { User } from "../user/User"
 import "./Employees.css"
 import { Link } from "react-router-dom"

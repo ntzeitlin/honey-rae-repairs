@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import "./Employees.css"
 import { useEffect, useState } from "react"
-import { getEmployeeById } from "../../../services/employeeService"
+import { getEmployeeById } from "../../services/employeeService"
 
 export const EmployeeDetails = () => {
 
