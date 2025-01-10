@@ -1,19 +1,24 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react"
 import { getAllTickets } from "../../services/ticketService"
 import "./Tickets.css"
 import { Ticket } from "./Ticket"
 import { FilterBar } from "./FilterBar"
 
-export const TicketList = () => {
+export const TicketList = ({ currentUser }) => {
     const [allTickets, setAllTickets] = useState([])
     const [showEmergencyOnly, setShowEmergencyOnly] = useState(false)
     const [filteredTickets, setFilteredTickets] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
 
-    useEffect(() => {
+    const getAndSetTickets = () => {
         getAllTickets().then((ticketsArray) => {
             setAllTickets(ticketsArray)
         })
+    }
+
+    useEffect(() => {
+        getAndSetTickets()
     }, [])
 
     useEffect(() => {
@@ -38,7 +43,7 @@ export const TicketList = () => {
         <FilterBar setSearchTerm={setSearchTerm} setShowEmergencyOnly={setShowEmergencyOnly} />
         <article className="tickets">
             {filteredTickets.map(ticketObj => {
-                return <Ticket ticket={ticketObj} key={ticketObj.id} />
+                return <Ticket ticket={ticketObj} currentUser={currentUser} getAndSetTickets={getAndSetTickets} key={ticketObj.id} />
             })}
         </article>
     </div>
