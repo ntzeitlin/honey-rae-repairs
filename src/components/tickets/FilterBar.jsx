@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 /* eslint-disable react/prop-types */
 export const FilterBar = ({
     setShowEmergencyOnly,
@@ -5,6 +7,8 @@ export const FilterBar = ({
     setSearchTerm,
     currentUser,
 }) => {
+    const navigate = useNavigate();
+
     return (
         <div className="filter-bar">
             {currentUser.isStaff ? (
@@ -26,6 +30,7 @@ export const FilterBar = ({
                     >
                         Show All
                     </button>
+
                     <input
                         type="text"
                         placeholder="Search Tickets"
@@ -37,7 +42,9 @@ export const FilterBar = ({
                 <>
                     <button
                         className="filter-btn btn-primary"
-                        onClick={() => {}}
+                        onClick={() => {
+                            navigate("/tickets/create");
+                        }}
                     >
                         Create Ticket
                     </button>
