@@ -18,6 +18,6 @@ export const ApplicationViews = () => {
   return currentUser.isStaff ? (
     <EmployeeViews currentUser={currentUser} />
   ) : (
-    <CustomerViews />
+    <CustomerViews currentUser={currentUser} />
   )
 }
