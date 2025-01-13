@@ -21,3 +21,9 @@ export const updateTicket = async (closedTicket) => {
         body: JSON.stringify(closedTicket)
     })
 }
+
+export const deleteTicket = async (ticketId) => {
+    return await fetch(`http://localhost:8088/serviceTickets/${ticketId}`, {
+        method: 'DELETE'
+    })
+}

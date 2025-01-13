@@ -8,6 +8,7 @@ import { FilterBar } from "./FilterBar"
 export const TicketList = ({ currentUser }) => {
     const [allTickets, setAllTickets] = useState([])
     const [showEmergencyOnly, setShowEmergencyOnly] = useState(false)
+    const [showOpenTicketsOnly, setShowOpenTicketsOnly] = useState(false)
     const [filteredTickets, setFilteredTickets] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
 
@@ -24,8 +25,11 @@ export const TicketList = ({ currentUser }) => {
 
     useEffect(() => {
         getAndSetTickets()
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser])
 
+
+    // Toggle Emergency Tickets: 
     useEffect(() => {
         if (showEmergencyOnly) {
             const emergencyTickets = allTickets.filter(
@@ -38,6 +42,17 @@ export const TicketList = ({ currentUser }) => {
 
     }, [showEmergencyOnly, allTickets])
 
+    // Toggle Customer Open Tickets
+    useEffect(() => {
+        if (showOpenTicketsOnly) {
+            const openTickets = allTickets.filter(ticket => !ticket.dateCompleted)
+            setFilteredTickets(openTickets)
+        } else {
+            setFilteredTickets(allTickets)
+        }
+    }, [allTickets, showOpenTicketsOnly])
+
+
     useEffect(() => {
         setFilteredTickets(allTickets.filter(ticket => ticket.description.toLowerCase().includes(searchTerm.toLowerCase())))
 
@@ -45,7 +60,7 @@ export const TicketList = ({ currentUser }) => {
 
     return <div className="tickets-container">
         <h2>Tickets</h2>
-        <FilterBar setSearchTerm={setSearchTerm} setShowEmergencyOnly={setShowEmergencyOnly} />
+        <FilterBar setSearchTerm={setSearchTerm} setShowEmergencyOnly={setShowEmergencyOnly} currentUser={currentUser} setShowOpenTicketsOnly={setShowOpenTicketsOnly} />
         <article className="tickets">
             {filteredTickets.map(ticketObj => {
                 return <Ticket ticket={ticketObj} currentUser={currentUser} getAndSetTickets={getAndSetTickets} key={ticketObj.id} />
